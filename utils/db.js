@@ -9,17 +9,17 @@ const uri = `mongodb://${host}:${port}`;
 class DBClient {
   constructor() {
     this.client = new MongoClient(uri, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
     });
-    
+
     // connect to the database
     this.client.connect()
       .then(() => {
         this.db = this.client.db(`${database}`);
       })
       .catch((err) => console.error(err));
-  };
+  }
 
   // checks if the mongodb connection is alive
   isAlive() {
@@ -32,7 +32,7 @@ class DBClient {
     const count = await userCollection.countDocuments();
 
     return count;
-  };
+  }
 
   // count number of document is the files collection
   async nbFiles() {
@@ -40,8 +40,8 @@ class DBClient {
     const count = await filesCollection.countDocuments();
 
     return count;
-  };
-};
+  }
+}
 
 const dbClient = new DBClient();
 

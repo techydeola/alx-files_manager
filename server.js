@@ -10,4 +10,5 @@ app.listen(PORT, () => {
 
 app.use(express.json());
 
+// all request handler
 app.use('', indexRoute);

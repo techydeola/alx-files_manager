@@ -1,21 +1,21 @@
-const dbClient = require('../utils/db.js');
-const redisClient = require('../utils/redis.js');
+const dbClient = require('../utils/db');
+const redisClient = require('../utils/redis');
 
 // status route controller
 const getStatus = (req, res) => {
   if (redisClient.isAlive() && dbClient.isAlive()) {
-    res.status(200).send({ "redis": true, "db": true });
-  };
+    res.status(200).send({ redis: true, db: true });
+  }
 };
 
 async function getStats(req, res) {
-  const count_user = await dbClient.nbUsers();
-  const count_files = await dbClient.nbFiles();
+  const countUser = await dbClient.nbUsers();
+  const countFiles = await dbClient.nbFiles();
 
-  res.status(200).send({ "users": count_user, "files": count_files });
-};
+  res.status(200).send({ users: countUser, files: countFiles });
+}
 
 module.exports = {
   getStatus,
-  getStats
+  getStats,
 };
