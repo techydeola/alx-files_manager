@@ -1,6 +1,7 @@
-const express = require('express');
-const { postNew } = require('../controllers/UsersController');
-const { getStatus, getStats } = require('../controllers/AppController');
+import express from 'express';
+import { postNew, getMe } from '../controllers/UsersController';
+import { getStatus, getStats } from '../controllers/AppController';
+import { getConnect, getDisconnect } from '../controllers/AuthController'
 
 const router = express.Router();
 
@@ -14,12 +15,12 @@ router.get('/stats', getStats);
 router.post('/users', postNew);
 
 // handles get request for /connect
-router.get('/connect');
+router.get('/connect', getConnect);
 
 // handles get request for /connect
-router.get('/disonnect');
+router.get('/disonnect', getDisconnect);
 
 // handles get request for /connect
-router.get('/user/me');
+router.get('/users/me');
 
 module.exports = router;

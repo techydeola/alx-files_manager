@@ -1,5 +1,5 @@
-const express = require('express');
-const indexRoute = require('./routes/index');
+import express from 'express';
+import indexRoute from './routes/index';
 
 const PORT = process.env.PORT || 5000;
 

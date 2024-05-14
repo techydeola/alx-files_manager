@@ -1,5 +1,8 @@
-const sha1 = require('sha1');
-const dbClient = require('../utils/db');
+import sha1 from 'sha1';
+import { ObjectID } from 'mongodb';
+// import Queue from 'bull';
+import dbClient from '../utils/db';
+import redisClient from '../utils/redis';
 
 // adding new user controller
 async function postNew(req, res) {
@@ -32,6 +35,27 @@ async function postNew(req, res) {
   res.status(201).send(data);
 }
 
+async function getMe(req, res) {
+  const token = req.header('X-Token');
+  const key = `auth_${token}`;
+  const userId = await redisClient.get(key);
+  if (userId) {
+    const users = dbClient.db.collection('users');
+    const idObject = new ObjectID(userId);
+    users.findOne({ _id: idObject }, (err, user) => {
+      if (user) {
+        res.status(200).json({ id: userId, email: user.email });
+      } else {
+        res.status(401).json({ error: 'Unauthorized' });
+      }
+    });
+  } else {
+    console.log('Hupatikani!');
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+}
+
 module.exports = {
   postNew,
+  getMe,
 };
