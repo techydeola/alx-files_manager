@@ -21,6 +21,24 @@ router.get('/connect', getConnect);
 router.get('/disonnect', getDisconnect);
 
 // handles get request for /connect
-router.get('/users/me');
+router.get('/users/me', getMe);
+
+// handles get request for /files
+router.post('/files', FilesController.postUpload);
+
+// handles get request for /files/:id
+router.get('/files/:id', FilesController.getShow);
+
+// handles get request for /files
+router.get('/files', FilesController.getIndex);
+
+// handles get request for /files/:id/publish
+router.put('/files/:id/publish', FilesController.putPublish);
+
+// handles get request for /files/:id/unpublish
+router.put('/files/:id/unpublish', FilesController.putUnpublish);
+
+// handles get request for /files/:id/data
+router.get('/files/:id/data', FilesController.getFile);
 
 module.exports = router;
